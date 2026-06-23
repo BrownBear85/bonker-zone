@@ -31,8 +31,9 @@ function applyClasses() {
 
     const links = document.querySelectorAll("a");
     links.forEach(element => {
-        if (element.href.indexOf("https") != -1) {
+        if (element.href.indexOf("https") != -1 && element.href.indexOf("bonker.zone") == -1) {
             element.target = "_blank";
+            element.rel = "noopener noreferrer";
         }
     });
 }

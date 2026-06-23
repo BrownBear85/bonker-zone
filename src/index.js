@@ -14,8 +14,8 @@ import projectsData from './data/projects.json';
 
 const formatter = new Intl.NumberFormat('en', { notation: 'compact'});
 
-const projectsCacheLifespan = 20 * 1000;
-var projectsCache;
+const projectsCacheLifespan = 30 * 1000;
+var projectsCache = [];
 var cacheTime = -1;
 
 export default {
@@ -38,7 +38,7 @@ export default {
 				return Response.json(linksData);
 			}
 			case '/api/projects': {
-				if (cacheTime == -1 || Date.now() - cacheTime > projectsCacheLifespan) {
+				if (projectsCache.length == 0 || cacheTime == -1 || Date.now() - cacheTime > projectsCacheLifespan) {
 					cacheTime = Date.now();
 					
 					projectsCache = [];
