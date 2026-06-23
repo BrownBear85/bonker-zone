@@ -150,7 +150,7 @@ input:focus, textarea:focus {
 }
 
 input {
-    /* width: clamp(15rem, 25vw, 20rem); */
+    width: 90%;
     aspect-ratio: 16/2;
 }
 

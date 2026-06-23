@@ -59,29 +59,29 @@ export default {
 						const payload = await request.json();
 						const { name, email, message, "cf-turnstile-response": token } = payload;
 
-						if (!name || !email || !message || !token) {
-							return new Response('Missing fields', { status: 400 });
-						}
+						// if (!name || !email || !message || !token) {
+						// 	return new Response('Missing fields', { status: 400 });
+						// }
 
-						// Connect to Cloudflare to check token validity
-						const verifyResponse = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
-							method: "POST",
-							headers: { "Content-Type": "application/json" },
-							body: JSON.stringify({
-								secret: env.TURNSTILE_KEY,
-								response: token,
-								remoteip: request.headers.get("CF-Connecting-IP"),
-							}),
-						});
+						// // Connect to Cloudflare to check token validity
+						// const verifyResponse = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+						// 	method: "POST",
+						// 	headers: { "Content-Type": "application/json" },
+						// 	body: JSON.stringify({
+						// 		secret: env.TURNSTILE_KEY,
+						// 		response: token,
+						// 		remoteip: request.headers.get("CF-Connecting-IP"),
+						// 	}),
+						// });
 
-						const verifyData = await verifyResponse.json();
-						if (!verifyData.success) {
-							return new Response('Verification failed', { status: 403 });
-						}
+						// const verifyData = await verifyResponse.json();
+						// if (!verifyData.success) {
+						// 	return new Response('Verification failed', { status: 403 });
+						// }
 
 						// Send email with Resend
 						const { data, error } = await resend.emails.send({
-							from: 'bonker.zone Contact Form <noreply@bonker.zone>',
+							from: 'bonker.zone Contact Form <automated@bonker.zone>',
 							to: ['bonker@bonker.zone'],
 							subject: 'New Contact Form Response',
 							html: buildEmail(name, email, message)
