@@ -17,7 +17,7 @@ import { Resend } from 'resend';
 const formatter = new Intl.NumberFormat('en', { notation: 'compact'});
 const resend = new Resend(env.RESEND_API_KEY);
 
-const projectsCacheLifespan = 3600 * 1000;
+const projectsCacheLifespan = 1 * 1000;
 var projectsCache = [];
 var cacheTime = -1;
 
@@ -42,14 +42,10 @@ export default {
 					return Response.json(linksData);
 				}
 				case '/api/projects': {
-					if (projectsCache.length == 0 || cacheTime == -1 || Date.now() - cacheTime > projectsCacheLifespan) {
-						cacheTime = Date.now();
-						
-						let downloadCounts = await getDownloadCounts(env);
-						projectsCache = [];
-						for (let i = 0; i < projectsData.length; i++) {
-							projectsCache.push({ ...projectsData[i], downloads: downloadCounts[i] });
-						}
+					if (projectsCache.length == 0) {
+						await updateProjectsCache(env);
+					} else if (Date.now() - cacheTime > projectsCacheLifespan) {
+						updateProjectsCache(env);
 					}
 
 					return Response.json(projectsCache);
@@ -105,7 +101,8 @@ export default {
 	},
 };
 
-async function getDownloadCounts(env) {
+async function updateProjectsCache(env) {
+	let downloadCounts = [];
 	try {
 		const curseforgeIds = projectsData.map(project => project.curseforge).filter(project => project != null);
 		const modrinthIds = projectsData.map(project => project.modrinth).filter(project => project != null);
@@ -125,7 +122,6 @@ async function getDownloadCounts(env) {
 			.then(response => response.json());
 		modrinthData.sort((a, b) => modrinthIds.indexOf(a.id) - modrinthIds.indexOf(b.id));
 
-		let downloadCounts = [];
 		for (const obj of projectsData) {
 			let downloads = 0;
 			
@@ -141,10 +137,15 @@ async function getDownloadCounts(env) {
 
 			downloadCounts.push(formatter.format(downloads));
 		}
-
-		return downloadCounts;
 	} catch (e) {
 		console.error("An error occurred whilst requesting download counts:", e);
+		return;
+	}
+
+	cacheTime = Date.now();
+	projectsCache = [];
+	for (let i = 0; i < projectsData.length; i++) {
+		projectsCache.push({ ...projectsData[i], downloads: downloadCounts[i] });
 	}
 }
 
