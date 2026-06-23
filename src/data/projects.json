@@ -1,0 +1,60 @@
+[
+    {
+        "name": "Sword in the Stone",
+        "category": "personal",
+        "icon": "swordinthestone.png",
+        "curseforge": 889680,
+        "modrinth": "3HWZ1ync",
+        "github": "https://github.com/BrownBear85/swordinthestone",
+        "description": "This mod adds fun unique swords that you can find throughout your world! Each one has random stats and a random magical ability."
+    },
+    {
+        "name": "Bananarangs",
+        "category": "personal",
+        "icon": "bananarangs.png",
+        "curseforge": 861492,
+        "modrinth": "VPDn3wwE",
+        "github": "https://github.com/BrownBear85/bananarangs",
+        "description": "This mod adds the upgradeable bananarang (banana boomerang), a fun, modular, vanilla-friendly weapon."
+    },
+    {
+        "name": "Snowball Fight",
+        "category": "personal",
+        "icon": "snowballfight.png",
+        "curseforge": 953945,
+        "github": "https://github.com/BrownBear85/snowball_fight",
+        "description": "This mod turns combat in snowy biomes into a snowball fight. Made for Winterjam 2023."
+    },
+    {
+        "name": "Reinnovation",
+        "category": "personal",
+        "icon": "reinnovation.png",
+        "curseforge": 1111612,
+        "description": "Adds new redstone blocks made from vanilla materials to allow for more automation. Made for Curseforge Modding Madness 2024."
+    },
+    {
+        "name": "Stardew Fishing",
+        "category": "commission",
+        "icon": "stardewfishing.png",
+        "curseforge": 1066037,
+        "modrinth": "Rw1Ylmn4",
+        "github": "https://github.com/BrownBear85/stardewfishing",
+        "description": "Making fishing fun with a minigame directly inspired by Stardew Valley! Commissioned by garflemn."
+    },
+    {
+        "name": "Wild Iron",
+        "category": "commission",
+        "icon": "wildiron.png",
+        "curseforge": 1083419,
+        "modrinth": "Gk6nh99V",
+        "github": "https://github.com/BrownBear85/wildiron",
+        "description": "Adds a wild west themed pistol item for early and late game. Commissioned by Just Conquran."
+    },
+    {
+        "name": "Shardborne",
+        "category": "other",
+        "icon": "shardborne.png",
+        "link": "https://shardborne.com",
+        "description": "A dungeon crawl ARPG modpack currently being developed by a volunteer team of developers, designers, and artists."
+    }
+]

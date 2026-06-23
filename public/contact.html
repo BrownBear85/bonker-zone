@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bonker</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<div class="flex-vertical" style="margin: 2vh;">
+
+    <div class="metal container flex-vertical draggable">
+        <h1 class="dark-shadow">Get in Touch</h1>
+        
+        <form id="contact-form">
+            <input type="text" name="name" placeholder="Your name" required>
+            <input type="email" name="email" placeholder="Your email" required>
+            <textarea name="message" placeholder="Your message" required></textarea>
+            <button type="submit">Send</button>
+            <p id="form-status"></p>
+        </form>
+    </div>
+
+</div>
+
+</body>
+
+<script src="scripts/global.js"></script>
+
+<script src="scripts/setup-contact-form.js"></script>
+
+</html>

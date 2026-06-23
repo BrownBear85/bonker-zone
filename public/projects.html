@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bonker</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<div class="undraggable flex-vertical" style="margin: 2vh;">
+
+    <div class="metal container flex-vertical">
+        <h1 class="dark-shadow">My Projects</h1>
+    </div>
+
+    <div class="projects-page undraggable">
+        <div class="undraggable metal container flex-vertical projects-column projects-personal">
+            <h2 class="project-category">Personal</h2>
+        </div>
+
+        <div class="undraggable flex-vertical projects-column">
+            <div class="undraggable metal container projects-commission">
+                <h2 class="project-category">Commission</h2>
+            </div>
+
+            <div class="undraggable metal container projects-other">
+                <h2 class="project-category">Other</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+
+<script>
+    async function loadProjects() {
+        const response = await fetch('/api/projects');
+        const projects = await response.json();
+
+        projects.forEach(obj => {
+            let category = document.querySelector(".projects-" + obj.category);
+            category.appendChild(document.createElement("hr"));
+
+            let projectContainer = document.createElement("div");
+            projectContainer.classList.add("project-container", "undraggable");
+            category.appendChild(projectContainer);
+
+            {
+                // Icon and download count
+                {
+                    let iconDiv = document.createElement("div");
+                    iconDiv.classList.add("project-icon-container", "undraggable");
+                    projectContainer.appendChild(iconDiv);
+
+                    let projectImg = document.createElement("img");
+                    projectImg.classList.add("project-img");
+                    projectImg.src = "assets/" + obj.icon;
+                    iconDiv.appendChild(projectImg);
+
+                    // Download count icon and text
+                    if (obj.downloads != "0") {
+                        let downloadsDiv = document.createElement("div");
+                        downloadsDiv.classList.add("project-download-container", "undraggable");
+                        iconDiv.appendChild(downloadsDiv);
+
+                        let downloadIcon = document.createElement("img");
+                        downloadIcon.classList.add("project-download-icon");
+                        downloadIcon.src = "assets/download.svg";
+                        downloadsDiv.appendChild(downloadIcon);
+
+                        let downloadText = document.createElement("h2");
+                        downloadText.classList.add("project-download-count");
+                        downloadText.textContent = obj.downloads;
+                        downloadsDiv.appendChild(downloadText);
+                    }
+                }
+
+                // Name and description
+                {
+                    let textDiv = document.createElement("div");
+                    textDiv.classList.add("undraggable");
+                    projectContainer.appendChild(textDiv);
+
+                    let projectName = document.createElement("h2");
+                    projectName.classList.add("project-name");
+                    projectName.textContent = obj.name;
+                    textDiv.appendChild(projectName);
+
+                    console.log(obj);
+
+                    let projectDescription = document.createElement("p");
+                    projectDescription.classList.add("project-description");
+                    projectDescription.textContent = obj.description;
+                    textDiv.appendChild(projectDescription);
+                }
+
+                // Image links
+                {
+                    let linkDiv = document.createElement("div");
+                    linkDiv.classList.add("flex-vertical", "undraggable");
+                    projectContainer.appendChild(linkDiv);
+
+                    for (const button of ["curseforge", "modrinth", "github", "link"]) {
+                        if (!obj[button]) continue;
+
+                        let a = document.createElement("a");
+                        let value = obj[button];
+                        if (button == "curseforge") {
+                            a.href = "https://curseforge.com/projects/" + value;
+                        } else if (button == "modrinth") {
+                            a.href = "https://modrinth.com/project/" + value;
+                        } else {
+                            a.href = value;
+                        }
+                        linkDiv.appendChild(a);
+                        
+                        let img = document.createElement("img");
+                        img.classList.add("project-link");
+                        img.src = "assets/" + button + ".svg";
+                        a.appendChild(img);
+                    }
+                }
+            }
+        });
+        
+        applyClasses();
+    }
+
+    loadProjects();
+</script>
+
+<script src="scripts/global.js"></script>
+
+</html>

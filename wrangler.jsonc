@@ -13,7 +13,8 @@
 	],
 	"assets": {
 		// The path to the directory containing the `index.html` file to be served at `/`
-		"directory": "./public"
+		"directory": "./public",
+		"not_found_handling": "404-page"
 	},
 	"observability": {
 		"enabled": true

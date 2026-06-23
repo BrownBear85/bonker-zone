@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Github",
+        "icon": "github.svg",
+        "url": "https://github.com/BrownBear85"
+    },
+    {
+        "name": "Curseforge",
+        "icon": "curseforge.svg",
+        "url": "https://www.curseforge.com/members/bonker/projects"
+    },
+    {
+        "name": "Modrinth",
+        "icon": "modrinth.svg",
+        "url": "https://modrinth.com/user/bonker"
+    }
+]

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bonker</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<div class="flex-vertical undraggable" style="margin: 2vh;">
+
+    <div class="metal container draggable" style="width: 85%;">
+        <h1 class="dark-shadow">About Me</h1>
+        <p class="description">Hi there! I'm bonker, a skilled Java developer with extensive experience creating mods for Minecraft. 
+            I've released several mods <a href="contact.html">for commissions</a> along with a few of <a href="projects.html">my own mods</a>.
+            I put a lot of effort into making sure that my mods are high quality, and they've been downloaded millions of times.
+            In addition to being a solo developer, I'm also a member of the <a href="https://shardborne.com">Shardborne</a> dev team.
+            If you want to hire me or just want to chat, feel free to <a href="contact.html">reach out!</a>
+        </p>
+        <h3>You can find me on the following websites:</h3>
+    </div>
+
+    <div class="flex-horizontal undraggable link-container"></div>
+
+</div>
+
+</body>
+
+<script>
+    async function loadLinks() {
+        const response = await fetch('/api/links');
+        const links = await response.json();
+
+        links.forEach(obj => {
+            let a = document.createElement("a");
+            a.classList.add("metal", "flex-horizontal", "link", "big-button");
+            a.draggable = false;
+            a.href = obj.url;
+
+            let img = document.createElement("img");
+            img.classList.add("link-img");
+            img.src = "assets/" + obj.icon;
+            img.alt = obj.name + " logo";
+            a.appendChild(img);
+
+            let h2 = document.createElement("h2");
+            h2.classList.add("link-text");
+            h2.textContent = obj.name;
+            a.appendChild(h2);
+
+            let linkContainer = document.querySelector(".link-container");
+            linkContainer.appendChild(a);
+        });
+
+        applyClasses();
+    }
+
+    loadLinks();
+</script>
+
+<script src="scripts/global.js"></script>
+
+</html>

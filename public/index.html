@@ -1,32 +1,65 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Hello, World!</title>
-	</head>
-	<body>
-		<h1 id="heading"></h1>
-		<p>This page comes from a static asset stored at `public/index.html` as configured in `wrangler.jsonc`.</p>
-		<button id="button" type="button">Fetch a random UUID</button>
-		<output id="random" for="button"></output>
-		<script>
-			fetch('/message')
-				.then((resp) => resp.text())
-				.then((text) => {
-					const h1 = document.getElementById('heading');
-					h1.textContent = text;
-				});
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bonker</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
 
-			const button = document.getElementById("button");
-			button.addEventListener("click", () => {
-				fetch('/random')
-					.then((resp) => resp.text())
-					.then((text) => {
-						const random = document.getElementById('random');
-						random.textContent = text;
-					});
-			});
-		</script>
-	</body>
+<body class="no-home-button">
+
+<div class="flex-horizontal undraggable">
+
+    <div class="flex-vertical undraggable">
+
+        <div class="metal container flex-vertical draggable">
+            <h1>bonker</h1>
+            <h2>Minecraft Mod Developer</h2>
+            <img src="https://cdn.discordapp.com/avatars/772107911265910817/f7fc6eeb4ec5327344d9af229bbd65a8.webp?size=1024" alt="bonker's profile picture" width="200" height="200">
+        </div>
+
+        <a class="metal rainbow big-button" draggable=false href="contact.html">
+            <strong>Hire Me</strong>
+        </a>
+
+        <div class="flex-horizontal">
+            <a class="metal button" draggable=false href="about.html">About</a>
+            <a class="metal button" draggable=false href="projects.html">Projects</a>
+            <a class="metal button" draggable=false href="contact.html">Contact</a>
+        </div>
+
+    </div>
+
+    <div class="flex-vertical undraggable">
+
+        <div class="metal rainbow quote">
+            <p class="testimonial-message description">Message Here</p>
+            <h3 class="testimonial-name">Name</h3>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+<script>
+    async function nextTestimonial(testimonialIndex) {
+        const response = await fetch('/api/testimonial?currentIndex=' + testimonialIndex);
+        const obj = await response.json();
+
+        document.querySelector(".testimonial-message").textContent = '"' + obj.message + '"';
+        document.querySelector(".testimonial-name").textContent = obj.name;
+
+        window.setTimeout(() => {
+            nextTestimonial(obj.index);
+        }, 30000);
+    }
+
+    nextTestimonial(-1);
+</script>
+
+<script src="scripts/global.js"></script>
+
 </html>
