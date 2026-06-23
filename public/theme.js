@@ -18,7 +18,7 @@ function initStyle() {
 
 function applyClasses() {
     // Make most visible elements draggable
-    const draggable = document.querySelectorAll("h1,h2,h3,img:not(.undraggable),div:not(.undraggable)");
+    const draggable = document.querySelectorAll("h1:not(.undraggable),h2,h3,img:not(.undraggable),div:not(.undraggable),button");
     draggable.forEach(element => {
         element.classList.add("draggable");
     });

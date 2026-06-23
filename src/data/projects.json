@@ -55,6 +55,15 @@
         "category": "other",
         "icon": "shardborne.png",
         "link": "https://shardborne.com",
-        "description": "A dungeon crawl ARPG modpack currently in development by a volunteer team of developers, designers, builders, and artists."
+        "description": "A dungeon crawl ARPG modpack currently in development by an international team of developers, designers, builders, and artists."
+    }
+    ,
+    {
+        "name": "bonker.zone",
+        "category": "other",
+        "icon": "pfp.png",
+        "link": "https://bonker.zone",
+        "github": "https://github.com/BrownBear85/bonker-zone",
+        "description": "This website; my online portfolio."
     }
 ]

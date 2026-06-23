@@ -5,30 +5,99 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>bonker</title>
     <link rel="stylesheet" href="style.css" />
+
+    <!-- <link rel="preconnect" href="https://challenges.cloudflare.com" /> -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 
 <body>
 
-<div class="flex-vertical" style="margin: 2vh;">
-
-    <div class="metal container flex-vertical draggable">
-        <h1 class="dark-shadow">Get in Touch</h1>
+<div class="undraggable projects-page" style="margin: 2vh;">
+    <div class="flex-vertical undraggable projects-column">
+        <div class="metal container">
+            <h1>Get in Touch</h1>
+        </div>
         
         <form id="contact-form">
-            <input type="text" name="name" placeholder="Your name" required>
-            <input type="email" name="email" placeholder="Your email" required>
-            <textarea name="message" placeholder="Your message" required></textarea>
-            <button type="submit">Send</button>
+            <div class="flex-vertical undraggable">
+                <div class="flex-horizontal undraggable">
+                    <div class="metal form-input">
+                        <input type="text" name="name" placeholder="Name" required>
+                    </div>
+                    <div class="metal form-input">
+                        <input type="email" name="email" placeholder="Email" required>
+                    </div>
+                </div>
+                
+                <div class="metal form-text">
+                    <textarea name="message" placeholder="Message" required></textarea>
+                </div>
+
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAADpy6rc9iJ7IM8Bl" appearance="execute"></div>
+
+                <button class="metal rainbow big-button" type="submit">
+                    <strong class="undraggable">Send</strong>
+                </button>
+            </div>
             <p id="form-status"></p>
         </form>
+    </div>
+
+    <div class="flex-vertical undraggable projects-column">
+        <div class="metal container undraggable">
+            <h1>My Services</h1>
+            <div class="description undraggable scrollbox" style="max-height: 600px;">
+                <p>I will make you a Minecraft mod with any features for the following mod loaders:</p>
+                <ul>
+                    <li>NeoForge - 1.20.1+</li>
+                    <li>MinecraftForge - 1.19.4 and older</li>
+                </ul>
+                <p>I can add typical features such as items, blocks, mobs etc., but I can also program more complex and unique features. Some notable examples from my previous work are:</p>
+                <ul>
+                    <li>Items with "attachments" or multiple dynamic visual layers</li>
+                    <li>Animated GUIs</li>
+                    <li>An npc/quest system</li>
+                    <li>Items that cna have armor trims applied to them</li>
+                    <li>Modifications to vanilla mobs' behavior</li>
+                    <li>Custom screen effects (post shaders)</li>
+                    <li>A discord bot running on the Minecraft server</li>
+                    <li>And more!</li>
+                </ul>
+                <p>If you have a cool idea for a Minecraft mod, I would love to make it for you! Feel free to contact me using the form on this page.</p>
+            </div>
+        </div>
     </div>
 
 </div>
 
 </body>
 
-<script src="theme.js"></script>
+<script>
+    const form = document.getElementById("contact-form");
+    const status = document.getElementById("form-status");
 
-<script src="scripts/setup-contact-form.js"></script>
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        status.textContent = "Sending...";
+
+        const formData = new FormData(form);
+        const payload = Object.fromEntries(formData.entries());
+
+        const response = await fetch("/api/contact", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+        });
+
+        if (response.ok) {
+            status.textContent = "Thanks! I'll get back to you soon.";
+            form.reset();
+        } else {
+            status.textContent = "Something went wrong. Please try again.";
+        }
+    });
+</script>
+
+<script src="theme.js"></script>
 
 </html>

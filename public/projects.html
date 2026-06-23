@@ -17,12 +17,12 @@
 
     <div class="projects-page undraggable">
         <div class="undraggable metal container flex-vertical projects-column projects-personal">
-            <h2 class="project-category">Personal</h2>
+            <h2 class="project-category">My Mods</h2>
         </div>
 
         <div class="undraggable flex-vertical projects-column">
             <div class="undraggable metal container projects-commission">
-                <h2 class="project-category">Commission</h2>
+                <h2 class="project-category">Commissions</h2>
             </div>
 
             <div class="undraggable metal container projects-other">
@@ -103,7 +103,7 @@
                     linkDiv.classList.add("flex-vertical", "undraggable");
                     projectContainer.appendChild(linkDiv);
 
-                    for (const button of ["curseforge", "modrinth", "github", "link"]) {
+                    for (const button of ["link", "curseforge", "modrinth", "github"]) {
                         if (!obj[button]) continue;
 
                         let a = document.createElement("a");
