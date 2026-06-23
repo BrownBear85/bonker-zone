@@ -17,7 +17,7 @@ import { Resend } from 'resend';
 const formatter = new Intl.NumberFormat('en', { notation: 'compact'});
 const resend = new Resend(env.RESEND_API_KEY);
 
-const projectsCacheLifespan = 1 * 1000;
+const projectsCacheLifespan = 3600 * 1000;
 var projectsCache = [];
 var cacheTime = -1;
 
