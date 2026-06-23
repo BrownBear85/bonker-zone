@@ -45,8 +45,8 @@ export default {
 					if (projectsCache.length == 0 || cacheTime == -1 || Date.now() - cacheTime > projectsCacheLifespan) {
 						cacheTime = Date.now();
 						
-						projectsCache = [];
 						let downloadCounts = await getDownloadCounts(env);
+						projectsCache = [];
 						for (let i = 0; i < projectsData.length; i++) {
 							projectsCache.push({ ...projectsData[i], downloads: downloadCounts[i] });
 						}
@@ -59,25 +59,25 @@ export default {
 						const payload = await request.json();
 						const { name, email, message, "cf-turnstile-response": token } = payload;
 
-						// if (!name || !email || !message || !token) {
-						// 	return new Response('Missing fields', { status: 400 });
-						// }
+						if (!name || !email || !message || !token) {
+							return new Response('Missing fields', { status: 400 });
+						}
 
-						// // Connect to Cloudflare to check token validity
-						// const verifyResponse = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
-						// 	method: "POST",
-						// 	headers: { "Content-Type": "application/json" },
-						// 	body: JSON.stringify({
-						// 		secret: env.TURNSTILE_KEY,
-						// 		response: token,
-						// 		remoteip: request.headers.get("CF-Connecting-IP"),
-						// 	}),
-						// });
+						// Connect to Cloudflare to check token validity
+						const verifyResponse = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+							method: "POST",
+							headers: { "Content-Type": "application/json" },
+							body: JSON.stringify({
+								secret: env.TURNSTILE_KEY,
+								response: token,
+								remoteip: request.headers.get("CF-Connecting-IP"),
+							}),
+						});
 
-						// const verifyData = await verifyResponse.json();
-						// if (!verifyData.success) {
-						// 	return new Response('Verification failed', { status: 403 });
-						// }
+						const verifyData = await verifyResponse.json();
+						if (!verifyData.success) {
+							return new Response('Verification failed', { status: 403 });
+						}
 
 						// Send email with Resend
 						const { data, error } = await resend.emails.send({
