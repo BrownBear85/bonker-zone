@@ -14,7 +14,7 @@ import projectsData from './data/projects.json';
 
 const formatter = new Intl.NumberFormat('en', { notation: 'compact'});
 
-const projectsCacheLifespan = 30 * 1000;
+const projectsCacheLifespan = 3600 * 1000;
 var projectsCache = [];
 var cacheTime = -1;
 

@@ -54,7 +54,7 @@
 
 @font-face {
   font-family: 'Monocraft';
-  src: url('fonts/monocraft_updated.otf') format('opentype');
+  src: url('assets/monocraft_updated.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -117,7 +117,7 @@ img {
     filter: drop-shadow(0px 0px 6px var(--shadow-color));
 }
 
-img.hoverable:hover {
+a img.hoverable:hover {
     filter: drop-shadow(0px 0px 6px var(--dark-shadow-color));
 }
 
@@ -356,8 +356,8 @@ a:hover {
 }
 
 .project-download-icon {
-    width: clamp(2rem, 6vw, 4rem);
-    height: clamp(2rem, 6vw, 4rem);
+    width: clamp(2rem, 6vw, 3rem);
+    height: clamp(2rem, 6vw, 3rem);
     margin: 0px;
 }
 
